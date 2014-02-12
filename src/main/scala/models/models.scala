@@ -3,10 +3,11 @@ package models
 import spray.json.DefaultJsonProtocol
 import spray.httpx.unmarshalling._
 import spray.httpx.marshalling._
-import java.util.UUID
 
-case class Corpus(id: Option[Int] = None, text: String)
+case class Corpus(id: Option[Long] = None, datum: String)
+case class OK(msg: String, numberOfRowsInserted: Int)
 
 object JsonProtocol extends DefaultJsonProtocol {
   implicit val corpusFormat = jsonFormat2(Corpus.apply)
+  implicit val idFormat = jsonFormat2(OK.apply)
 }

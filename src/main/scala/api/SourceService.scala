@@ -12,6 +12,7 @@ import spray.routing.HttpService
 import spray.routing.authentication.BasicAuth
 import spray.routing.directives.CachingDirectives._
 import spray.httpx.encoding._
+import scala.reflect.ClassTag
 
 import models._
 import models.JsonProtocol._
@@ -24,18 +25,21 @@ class SourceService(source: ActorRef)(implicit executionContext: ExecutionContex
   import scala.concurrent.duration._
   implicit val timeout = Timeout(2.seconds)
   
-  val route = {
+  val route = rejectEmptyResponse {
     pathPrefix("api") {
       path("corpus") {
         post {
-          decompressRequest() {
-            entity(as[Corpus]) { corpus =>
-              detach() {
-                complete {
-                  source ! corpus
-                  corpus
-                }
-              }
+          entity(as[Corpus]) { corpus =>
+            complete {
+              (source ask corpus).mapTo[Option[OK]]
+            }
+          }
+        }
+      } ~ path("sentence" / Segment / Segment) { (word1, word2) =>
+        get {
+          respondWithMediaType(`application/json`) {
+            complete {
+              "Here we go!"
             }
           }
         }

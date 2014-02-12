@@ -32,14 +32,18 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-actor" % "2.3.0-RC1",
-  "com.typesafe.akka" %% "akka-slf4j" % "2.3.0-RC1",
-  "io.spray" % "spray-can" % "1.3-RC1",
-  "io.spray" % "spray-client" % "1.3-RC1",
-  "io.spray" % "spray-routing" % "1.3-RC1",
+  "com.typesafe.akka" %% "akka-actor" % "2.2.3",
+  "com.typesafe.akka" %% "akka-slf4j" % "2.2.3",
+  "org.slf4j" % "slf4j-api" % "1.7.5",
+  "org.slf4j" % "slf4j-simple" % "1.7.5",
+  "io.spray" % "spray-can" % "1.2-20130712",
+  "io.spray" % "spray-client" % "1.2-20130712",
+  "io.spray" % "spray-routing" % "1.2-20130712",
   "io.spray" %% "spray-json" % "1.2.5",
   "com.typesafe.slick" %% "slick" % "2.0.0",
+  "mysql" % "mysql-connector-java" % "5.1.28",
+  "net.debasishg" %% "redisreact" % "0.3",  
   "org.specs2" %% "specs2" % "2.2.2" % "test",
   "io.spray" % "spray-testkit" % "1.2.0" % "test",
-  "com.typesafe.akka" %% "akka-testkit" % "2.3.0-RC1" % "test"
+  "com.typesafe.akka" %% "akka-testkit" % "2.2.3" % "test"
 )
