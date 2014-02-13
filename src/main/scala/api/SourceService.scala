@@ -6,21 +6,21 @@ import spray.http.MediaTypes.{ `application/json` }
 import akka.actor.ActorRef
 import akka.util.Timeout
 import spray.httpx.SprayJsonSupport
-
 import scala.concurrent.duration.Duration
 import spray.routing.HttpService
 import spray.routing.authentication.BasicAuth
 import spray.routing.directives.CachingDirectives._
 import spray.httpx.encoding._
 import scala.reflect.ClassTag
-
 import models._
 import models.JsonProtocol._
+import scala.concurrent.Future
 
-class SourceService(source: ActorRef)(implicit executionContext: ExecutionContext)
+class SourceService(source: ActorRef, markov: ActorRef)(implicit executionContext: ExecutionContext)
   extends Directives with SprayJsonSupport {
 
   import actors.SourceActor._
+  import actors.MarkovActor._
   import akka.pattern.ask
   import scala.concurrent.duration._
   implicit val timeout = Timeout(2.seconds)
@@ -39,7 +39,7 @@ class SourceService(source: ActorRef)(implicit executionContext: ExecutionContex
         get {
           respondWithMediaType(`application/json`) {
             complete {
-              "Here we go!"
+              (markov ask Get(List(word1, word2), 100)).mapTo[Future[String]]
             }
           }
         }

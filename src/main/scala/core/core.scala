@@ -1,5 +1,6 @@
 package core
 
+import actors.MarkovActor
 import actors.SourceActor
 import akka.actor.ActorSystem
 import akka.actor.Props
@@ -43,4 +44,5 @@ trait CorePlumbing {
   this: Core =>
   
   val source = system.actorOf(SourceActor.props())
+  val markov = system.actorOf(Props(new MarkovActor()))
 }

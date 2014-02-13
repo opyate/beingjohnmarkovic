@@ -19,7 +19,7 @@ trait Api extends RouteConcatenation {
   private implicit val _ = system.dispatcher
 
   val routes =
-    new SourceService(source).route
+    new SourceService(source, markov).route
 
     val rootService: ActorRef =
         system.actorOf(Props(new RoutedHttpService(routes)).withRouter(RoundRobinRouter(nrOfInstances = 10)))
