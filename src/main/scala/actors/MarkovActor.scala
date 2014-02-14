@@ -38,7 +38,7 @@ class MarkovActor extends Actor with ActorLogging {
   implicit val timeout = Timeout(2.seconds)
 
   // Redis client setup
-  val db = RedisClient("localhost", 6379)
+  def db = RedisClient("localhost", 6379)
  
   def receive: Receive = {
     case corpus: Corpus => buildChain(corpus)

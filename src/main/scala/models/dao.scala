@@ -1,6 +1,6 @@
 package models
 
-import scala.slick.driver.PostgresDriver.simple._
+import scala.slick.driver.MySQLDriver.simple._
 
 // Definition of the corpus table
 class Corpora(tag: Tag) extends Table[Corpus](tag, "corpora") {
